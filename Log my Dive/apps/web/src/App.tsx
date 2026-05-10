@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 import { Home } from './pages/Home';
 import { LogDetail } from './pages/LogDetail';
 import { CreateLog } from './pages/CreateLog';
+import { EditLog } from './pages/EditLog';
 import { ImportPage } from './pages/ImportPage';
 import { StatsPage } from './pages/StatsPage';
 import { SettingsPage } from './pages/SettingsPage';
@@ -27,6 +28,7 @@ export function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/log/create" element={<CreateLog />} />
+            <Route path="/log/:id/edit" element={<EditLog />} />
             <Route path="/log/:id" element={<LogDetail />} />
             <Route path="/import" element={<ImportPage />} />
             <Route path="/stats" element={<StatsPage />} />

@@ -114,12 +114,12 @@ Open [http://localhost:5173](http://localhost:5173) in your browser. To install 
 | JsonAdapter parser | ✅ Done |
 | Garmin / Subsurface stubs | ✅ Stubbed |
 | SQLite database (mobile) | 🔲 Milestone 1 |
-| IndexedDB (web) | 🔲 Milestone 1 |
-| Dive log list screen | 🔲 Milestone 3 |
-| Create / Edit / Delete log | 🔲 Milestone 4 |
-| Log detail page | 🔲 Milestone 5 |
-| CSV & JSON import UI | 🔲 Milestone 6 |
-| Statistics page | 🔲 Milestone 7 |
+| IndexedDB (web) | ✅ Done (web) |
+| Dive log list screen | ✅ Done (web) |
+| Create / Edit / Delete log | ✅ Done (web) |
+| Log detail page | ✅ Done (web) |
+| CSV & JSON import UI | ✅ Done (web) |
+| Statistics page | ✅ Done (web) |
 | Share card generation | 🔲 Milestone 8 |
 
 ---

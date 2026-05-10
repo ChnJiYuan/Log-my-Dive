@@ -1,20 +1,31 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { DiveLogForm, EMPTY_FORM } from '../components/DiveLogForm';
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import type { DiveLog } from '@log-my-dive/core';
+import { DiveLogForm, formFromLog } from '../components/DiveLogForm';
 import type { DiveLogFormValues } from '../components/DiveLogForm';
 import { useApp } from '../context/AppContext';
 
-export function CreateLog() {
-  const { repo, userId, isMetric } = useApp();
+export function EditLog() {
+  const { repo, isMetric } = useApp();
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const [log, setLog] = useState<DiveLog | null>(null);
   const [saving, setSaving] = useState(false);
+  const [notFound, setNotFound] = useState(false);
+
+  useEffect(() => {
+    if (!id) return;
+    repo.getById(id).then((l) => {
+      if (!l) setNotFound(true);
+      else setLog(l);
+    });
+  }, [repo, id]);
 
   const handleSave = async (values: DiveLogFormValues) => {
+    if (!id) return;
     setSaving(true);
     try {
-      await repo.create({
-        userId,
-        source: 'manual',
+      await repo.update(id, {
         date: values.date,
         entryTime: values.entryTime,
         exitTime: values.exitTime,
@@ -25,30 +36,38 @@ export function CreateLog() {
         averageDepth: values.averageDepth ? toMetric(Number(values.averageDepth), 'depth', isMetric) : undefined,
         waterTemperature: values.waterTemperature ? toMetric(Number(values.waterTemperature), 'temp', isMetric) : undefined,
         visibility: values.visibility ? toMetric(Number(values.visibility), 'depth', isMetric) : undefined,
-        tankType: (values.tankType || undefined) as Parameters<typeof repo.create>[0]['tankType'],
+        tankType: (values.tankType || undefined) as DiveLog['tankType'],
         startPressure: values.startPressure ? toMetric(Number(values.startPressure), 'pressure', isMetric) : undefined,
         endPressure: values.endPressure ? toMetric(Number(values.endPressure), 'pressure', isMetric) : undefined,
         weight: values.weight ? toMetric(Number(values.weight), 'weight', isMetric) : undefined,
         buddy: values.buddy.trim() || undefined,
         instructor: values.instructor.trim() || undefined,
-        diveType: (values.diveType || undefined) as Parameters<typeof repo.create>[0]['diveType'],
-        seaCondition: (values.seaCondition || undefined) as Parameters<typeof repo.create>[0]['seaCondition'],
+        diveType: (values.diveType || undefined) as DiveLog['diveType'],
+        seaCondition: (values.seaCondition || undefined) as DiveLog['seaCondition'],
         moodRating: values.moodRating ? (Number(values.moodRating) as 1 | 2 | 3 | 4 | 5) : undefined,
         notes: values.notes.trim() || undefined,
       });
-      navigate('/');
+      navigate(`/log/${id}`);
     } finally {
       setSaving(false);
     }
   };
 
+  if (notFound) {
+    return <div style={{ padding: 16, color: '#FF6B6B' }}>Dive log not found.</div>;
+  }
+
+  if (!log) {
+    return <div style={{ padding: 16, color: '#8FA3B1' }}>Loading…</div>;
+  }
+
   return (
     <DiveLogForm
-      title="New Dive Log"
-      initialValues={EMPTY_FORM}
+      title="Edit Dive Log"
+      initialValues={formFromLog(log)}
       saving={saving}
       onSave={handleSave}
-      cancelTo="/"
+      cancelTo={`/log/${id}`}
     />
   );
 }
