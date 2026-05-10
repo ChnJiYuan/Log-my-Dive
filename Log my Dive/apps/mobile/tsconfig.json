@@ -1,0 +1,10 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "@log-my-dive/core": ["../../packages/core/src/index.ts"],
+      "@log-my-dive/adapters": ["../../packages/adapters/src/index.ts"]
+    }
+  }
+}

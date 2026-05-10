@@ -1,0 +1,23 @@
+{
+  "name": "log-my-dive",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:mobile": "yarn workspace @log-my-dive/mobile start",
+    "dev:web": "yarn workspace @log-my-dive/web dev",
+    "build:web": "yarn workspace @log-my-dive/web build",
+    "lint": "turbo lint",
+    "typecheck": "turbo typecheck"
+  },
+  "devDependencies": {
+    "turbo": "^2.0.0",
+    "typescript": "^5.4.0"
+  },
+  "packageManager": "yarn@1.22.22",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

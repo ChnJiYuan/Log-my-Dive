@@ -1,0 +1,18 @@
+{
+  "name": "@log-my-dive/adapters",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@log-my-dive/core": "*"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "papaparse": "^5.4.1",
+    "@types/papaparse": "^5.3.14"
+  }
+}

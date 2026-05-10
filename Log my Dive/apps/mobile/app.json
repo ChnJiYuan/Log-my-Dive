@@ -1,0 +1,43 @@
+{
+  "expo": {
+    "name": "Log my Dive",
+    "slug": "log-my-dive",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0A2342"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.logmydive.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0A2342"
+      },
+      "package": "com.logmydive.app"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-sqlite",
+      [
+        "expo-image-picker",
+        { "photosPermission": "Log my Dive accesses your photos to attach them to dive logs." }
+      ],
+      [
+        "expo-location",
+        { "locationWhenInUsePermission": "Log my Dive uses your location to record dive coordinates." }
+      ]
+    ],
+    "scheme": "log-my-dive"
+  }
+}
