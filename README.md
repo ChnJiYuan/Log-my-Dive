@@ -120,7 +120,7 @@ Open [http://localhost:5173](http://localhost:5173) in your browser. To install 
 | Log detail page | ✅ Done (web) |
 | CSV & JSON import UI | ✅ Done (web) |
 | Statistics page | ✅ Done (web) |
-| Share card generation | 🔲 Milestone 8 |
+| Share card generation | ✅ Done (web) |
 
 ---
 

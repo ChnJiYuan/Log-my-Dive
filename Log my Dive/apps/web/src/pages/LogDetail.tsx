@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import type { DiveLog } from '@log-my-dive/core';
 import { metresToDisplay, celsiusToDisplay, barToDisplay, kgToDisplay } from '@log-my-dive/core';
 import { useApp } from '../context/AppContext';
+import { ShareModal } from '../components/ShareModal';
 
 export function LogDetail() {
   const { id } = useParams<{ id: string }>();
@@ -11,6 +12,7 @@ export function LogDetail() {
   const [log, setLog] = useState<DiveLog | null>(null);
   const [notFound, setNotFound] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [showShare, setShowShare] = useState(false);
 
   const units = isMetric ? 'metric' : 'imperial';
 
@@ -49,8 +51,14 @@ export function LogDetail() {
       {/* Header row */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Link to="/" style={s.back}>← Back</Link>
-        <Link to={`/log/${log.id}/edit`} style={s.editBtn}>Edit</Link>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <button style={s.shareBtn} onClick={() => setShowShare(true)}>Share</button>
+          <Link to={`/log/${log.id}/edit`} style={s.editBtn}>Edit</Link>
+        </div>
       </div>
+
+      {/* Share modal */}
+      {showShare && <ShareModal log={log} onClose={() => setShowShare(false)} />}
 
       {/* Hero */}
       <div style={s.hero}>
@@ -205,6 +213,10 @@ function anyOf(log: DiveLog, fields: (keyof DiveLog)[]): boolean {
 
 const s: Record<string, React.CSSProperties> = {
   back: { color: '#4FC3F7', fontSize: 14, textDecoration: 'none' },
+  shareBtn: {
+    color: '#FF6B6B', background: 'rgba(255,107,107,0.1)', border: '1px solid rgba(255,107,107,0.3)',
+    borderRadius: 8, padding: '6px 14px', fontSize: 13, fontWeight: 600, cursor: 'pointer',
+  },
   editBtn: {
     color: '#0A2342', background: '#E8EFF4', borderRadius: 8,
     padding: '6px 14px', fontSize: 13, fontWeight: 600, textDecoration: 'none',
